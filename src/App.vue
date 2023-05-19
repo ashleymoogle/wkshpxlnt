@@ -1,9 +1,10 @@
 <script setup lang="ts">
-  import Home from './components/Home.vue';
+
 </script>
 
 <template>
   <div>
-    <home />
+      Hello
+      <router-view></router-view>
   </div>
 </template>
