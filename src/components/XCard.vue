@@ -1,8 +1,16 @@
 <template>
     <div class="x-card--wrapper">
-        <div class="x-card--header">Header</div>
-        <div class="x-card--content">Content</div>
-        <div class="x-card--footer">Footer</div>
+        <div class="x-card--header">
+          <slot name="header"></slot>
+        </div>
+        <div class="x-card--content">
+          <slot name="content"></slot>
+          <input type="text" v-model="localTodo.title">
+        </div>
+        <div class="x-card--footer">
+          <slot name="footer"></slot>
+          <button @click="save">Save!</button>
+        </div>
     </div>
 </template>
 
@@ -19,12 +27,12 @@
                 required: true, // what happens if we remove this?
             }
         },
-        emits: [], // what is this?
-        setup (props) {
-            const { todo } = toRefs(props);
-            const localTodo: ComputedRef<Todo> = computed({
+        emits: ['save:todo'], // what is this?
+        setup (props, {emit}) {
+            const { todo:item } = toRefs(props);
+            const localTodo: any = computed({
                 get() {
-                   return todo.value;
+                   return item.value;
                 },
                 set(val) {
                     // what to do here?
@@ -32,8 +40,13 @@
                 },
             })
 
+           const save = () => {
+             emit('save:todo', localTodo.value)
+             console.log('saved !!!!!!');
+           }
+
             return {
-                localTodo,
+                localTodo, save, item
             }
         }
     })
