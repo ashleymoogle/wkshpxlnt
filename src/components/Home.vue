@@ -11,16 +11,18 @@ const {get, patch} = useFetch()
 
 const getData = async () => {
   // const data = await get('https://jsonplaceholder.typicode.com/users/1/todos')
-  todos.value = await get('https://jsonplaceholder.typicode.com/users/1/todos')
+  // todos.value = await get('https://jsonplaceholder.typicode.com/users/1/todos')
+  todos.value = await get('https://my-json-server.typicode.com/lapie002/to-do-list-composition-api/todos')
 }
 
 // const data = await get('https://jsonplaceholder.typicode.com/users/1/todos')
 // console.log(data)
 
 const updateTodo = async (todo:any) => {
-  // console.log(todo)
+  console.log(todo)
   // todos.value.splice(todos.value.findIndex(item => item.id === todo.id), 1, todo)
-  await patch('https://jsonplaceholder.typicode.com/todos/' + todo.id, todo)
+  // await patch('https://jsonplaceholder.typicode.com/todos/' + todo.id, todo)
+  await patch('https://my-json-server.typicode.com/lapie002/to-do-list-composition-api/todos/' + todo.id, todo)
 }
 
 onMounted(async () => {
