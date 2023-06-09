@@ -1,49 +1,53 @@
 <template>
     <div class="x-card--wrapper">
-        <div class="x-card--header">Header</div>
-        <div class="x-card--content">Content</div>
-        <div class="x-card--footer">Footer</div>
+        <div class="x-card--content">
+            <input
+                v-model="todo.completed"
+                type="checkbox"
+                @change="updateTodo"
+            >
+            <span>{{ todo.title }}</span>
+        </div>
+        <div class="x-card--footer">
+            <router-link active-class="active" :to="{ name: 'todoComposition', params: { id: todo.id } }">Edit</router-link>
+            <button @click="deleteTodo">Delete</button>
+        </div>
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
     import { Todo } from '@/types.ts';
-    import { defineComponent, computed, toRefs, PropType, ComputedRef } from 'vue';
-    export default defineComponent({
-        name: 'XCard',
-        props: {
-            // make this generic
-            todo: {
-                type: Array as PropType<Todo>,
-                default: () => [],
-                required: true, // what happens if we remove this?
-            }
-        },
-        emits: [], // what is this?
-        setup (props) {
-            const { todo } = toRefs(props);
-            const localTodo: ComputedRef<Todo> = computed({
-                get() {
-                   return todo.value;
-                },
-                set(val) {
-                    // what to do here?
-                    console.log(val);
-                },
-            })
+    import { PropType, toRefs, } from 'vue';
 
-            return {
-                localTodo,
-            }
+    defineOptions({
+        name: 'XCardComposition',
+    })
+    const props = defineProps({
+        todo: {
+            type: Object as PropType<Todo>,
+            default: () => {},
+            required: true,
         }
     })
+
+    const emit = defineEmits(['update:todo', 'delete:todo'])
+
+    const { todo } = toRefs(props);
+
+    const updateTodo = (() => {
+        emit('update:todo', todo)
+    })
+
+    const deleteTodo = (() => {
+        emit('delete:todo', todo)
+    })
+
 </script>
 
 <style scoped lang="scss">
     .x-card {
-        &--header {
+        &--content {
             @apply text-2xl font-bold;
         }
-        // other styles...
     }
 </style>
