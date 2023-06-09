@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/components/Home.vue';
-import HomeComposition from '@/components/HomeComposition.vue';
-import Todo from '@/components/Todo.vue';
-import TodoComposition from '@/components/TodoComposition.vue';
+import Home from '@/src/components/Home.vue';
+import HomeComposition from '@/src/components/HomeComposition.vue';
+import Todo from '@/src/components/Todo.vue';
+import TodoComposition from '@/src/components/TodoComposition.vue';
 
 const routes: any[] = [
     {
@@ -18,7 +18,7 @@ const routes: any[] = [
         component: Todo,
     },
     {
-        path: 'composition/todo/:id',
+        path: '/composition/todo/:id',
         component: TodoComposition,
     }
 ];
