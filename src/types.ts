@@ -1,5 +1,6 @@
 export interface Todo {
-    done: boolean
+    userId: number
+    id: number
     title: string
-    props?: Record<string, any>
+    completed: boolean
 }
