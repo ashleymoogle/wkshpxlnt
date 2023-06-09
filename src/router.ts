@@ -7,18 +7,22 @@ import TodoComposition from '@/src/components/TodoComposition.vue';
 const routes: any[] = [
     {
         path: '/',
+        name: 'home',
         component: Home,
     },
     {
         path: '/composition',
+        name: 'composition',
         component: HomeComposition,
     },
     {
         path: '/todo/:id',
+        name: 'todo',
         component: Todo,
     },
     {
         path: '/composition/todo/:id',
+        name: 'todoComposition',
         component: TodoComposition,
     }
 ];
