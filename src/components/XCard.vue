@@ -31,13 +31,13 @@
                 required: true,
             }
         },
-        emits: ['delete:todo'],
+        emits: ['delete:todo', 'update:todo'],
         methods: {
             deleteTodo() {
                 this.$emit('delete:todo', this.todo);
             },
             updateTodo() {
-                this.$emit('delete:todo', this.todo);
+                this.$emit('update:todo', this.todo);
             },
         }
     })
