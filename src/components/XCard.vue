@@ -4,9 +4,12 @@
             {{todo.title}}
         </div>
         <div class="x-card--content">
-            By : {{todo.userId}}
-            <br />
-            Done: <input type="checkbox" :checked="todo.completed" disabled>
+            <span>
+              By : {{todo.userId}}
+            </span>
+            <span>
+              Done: <input type="checkbox" :checked="todo.completed" disabled>
+            </span>
         </div>
         <div class="x-card--footer">
             <svg @click="deleteTodo" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -39,8 +42,19 @@
 
 <style scoped lang="scss">
     .x-card {
+        &--wrapper {
+          width: 300px;
+          height: 200px;
+          @apply rounded-2xl border-2 p-2 flex flex-col justify-between;
+        }
         &--header {
             @apply text-2xl font-bold;
+        }
+        &--content {
+          @apply flex justify-between;
+        }
+        &--footer {
+            @apply flex justify-center;
         }
     }
 </style>

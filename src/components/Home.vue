@@ -1,14 +1,17 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
-  // import {Xcard} from 'Xcard';
+  import XCard from '@/src/components/XCard.vue';
 
+  // @ts-ignore
   export default defineComponent({
+    components: {
+      XCard,
+    },
     data() {
       return {
         title: 'Hello',
         userId: 0,
         completed: false,
-
         cards: [
           {
             userId: 1,
@@ -25,10 +28,9 @@
         ],
       }
     },
-
     computed: {
       title() {
-        return this.name;
+        return this.title;
       },
     },
 
@@ -48,14 +50,13 @@
   <h1 class="text-3xl font-bold underline">
     {{ title }}
   </h1>
-  <ul>
-    <li v-for="card in cards" :key="card.id">
-      <p>{{ card.id }}</p>
-      <p>{{ card.title }}</p>
-      <p>{{ card.completed }}</p>
-    </li>
-  </ul>
+  <div class="cards">
+    <x-card v-for="card in cards" :key="card.id" :todo="card" />
+  </div>
 
+  <h1 class="text-3xl font-bold underline mb-4">
+    Add todo
+  </h1>
   <form class="review-form" @submit.prevent="onSubmit">
     <p>
       <label for="name">title:</label>
@@ -74,7 +75,7 @@
 </template>
 
 <style scoped lang="scss">
-  .content {
-    @apply flex justify-between mt-4;
+  .cards {
+    @apply flex justify-between mt-8 mb-8;
   }
 </style>
