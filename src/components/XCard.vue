@@ -5,7 +5,7 @@
         </div>
         <div class="x-card--content">
             <span>
-              By : {{todo.userId}}
+              By : {{ username }}
             </span>
             <span>
               Done: <input v-model="todo.completed" type="checkbox" @change="updateTodo">
@@ -29,7 +29,11 @@
                 type: Object as PropType<Todo>,
                 default: () => {},
                 required: true,
-            }
+            },
+          username: {
+            type: String,
+            default: '',
+          }
         },
         emits: ['delete:todo', 'update:todo'],
         methods: {

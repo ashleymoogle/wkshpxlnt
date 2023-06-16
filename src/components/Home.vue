@@ -23,7 +23,6 @@
     },
 
     methods: {
-
       async getCards() {
         // @ts-ignore
         const res = await fetch('https://jsonplaceholder.typicode.com/todos/', {'Content-type': 'application/json; charset=UTF-8'});
@@ -38,6 +37,18 @@
         const data = await res.json();
         console.log('GET Users:', data);
         return data;
+      },
+
+      getUserName(todo:Todo) {
+        const user = this.users.find((item) => {
+          return item.id === todo.userId
+        })
+
+        if(user) {
+          return user.name;
+        }
+
+        return '-';
       },
 
       onSubmit() {
@@ -75,18 +86,18 @@
           //
           // this.cards = cardsApi.slice(0,10);
         } catch(e) {
-          console.log(e)
+          console.log('errors', e)
         }
     },
   },
 
-    async mounted() {
-      // useFetch()
-      this.users = await this.getUsers();
-      const cardsApi = await this.getCards();
+  async mounted() {
+    this.users = await this.getUsers();
+    const cardsApi = await this.getCards();
 
-      this.cards = cardsApi.slice(0,10);
-    })
+    this.cards = cardsApi.slice(0, 10);
+  }
+})
 </script>
 
 <template>
@@ -94,7 +105,7 @@
     Home
   </h1>
   <div class="cards">
-    <x-card v-for="card in cards" :key="card.id" :todo="card" @delete:todo="removeToDo" />
+    <x-card v-for="card in cards" :key="card.id" :username="getUserName(card)" :todo="card" @delete:todo="removeToDo" />
   </div>
 
   <h1 class="text-3xl font-bold underline mb-4">
@@ -108,7 +119,7 @@
 
     <p>
       <select v-model="user">
-        <option v-for="item in users" :key="item.id" :value="item.id">{{ item.username }}</option>
+        <option v-for="item in users" :key="item.id" :value="item.id">{{ item.name }}</option>
       </select>
     </p>
 
