@@ -8,7 +8,7 @@
               By : {{todo.userId}}
             </span>
             <span>
-              Done: <input type="checkbox" :checked="todo.completed" disabled>
+              Done: <input v-model="todo.completed" type="checkbox" @change="updateTodo">
             </span>
         </div>
         <div class="x-card--footer">
@@ -34,8 +34,11 @@
         emits: ['delete:todo'],
         methods: {
             deleteTodo() {
-                this.$emit('delete:todo', this.todo.id);
-            }
+                this.$emit('delete:todo', this.todo);
+            },
+            updateTodo() {
+                this.$emit('delete:todo', this.todo);
+            },
         }
     })
 </script>
