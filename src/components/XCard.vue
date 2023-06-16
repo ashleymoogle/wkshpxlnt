@@ -1,39 +1,37 @@
 <template>
     <div class="x-card--wrapper">
-        <div class="x-card--header">Header</div>
-        <div class="x-card--content">Content</div>
-        <div class="x-card--footer">Footer</div>
+        <div class="x-card--header">
+            {{todo.title}}
+        </div>
+        <div class="x-card--content">
+            By : {{todo.userId}}
+            <br />
+            Done: <input type="checkbox" :checked="todo.completed" disabled>
+        </div>
+        <div class="x-card--footer">
+            <svg @click="deleteTodo" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+            </svg>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
     import { Todo } from '@/types.ts';
-    import { defineComponent, computed, toRefs, PropType, ComputedRef } from 'vue';
+    import { defineComponent, PropType } from 'vue';
     export default defineComponent({
         name: 'XCard',
         props: {
-            // make this generic
             todo: {
-                type: Array as PropType<Todo>,
-                default: () => [],
-                required: true, // what happens if we remove this?
+                type: Object as PropType<Todo>,
+                default: () => {},
+                required: true,
             }
         },
-        emits: [], // what is this?
-        setup (props) {
-            const { todo } = toRefs(props);
-            const localTodo: ComputedRef<Todo> = computed({
-                get() {
-                   return todo.value;
-                },
-                set(val) {
-                    // what to do here?
-                    console.log(val);
-                },
-            })
-
-            return {
-                localTodo,
+        emits: ['delete:todo'],
+        methods: {
+            deleteTodo() {
+                this.$emit('delete:todo', this.todo.id);
             }
         }
     })
@@ -44,6 +42,5 @@
         &--header {
             @apply text-2xl font-bold;
         }
-        // other styles...
     }
 </style>
