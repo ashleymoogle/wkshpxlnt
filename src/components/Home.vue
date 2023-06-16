@@ -19,7 +19,9 @@
     },
 
     computed: {
-      //
+        totalTodos () {
+          return this.cards.length;
+        }
     },
 
     methods: {
@@ -104,6 +106,12 @@
   <h1 class="text-3xl font-bold underline">
     Home
   </h1>
+  <div class="content">
+    <div>
+      Total Todos: {{ totalTodos }}
+    </div>
+  </div>
+
   <div class="cards">
     <x-card v-for="card in cards" :key="card.id" :username="getUserName(card)" :todo="card" @delete:todo="removeToDo" />
   </div>
