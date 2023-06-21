@@ -8,6 +8,7 @@ import { Todo, User } from '@/types.ts';
 // the first argument is a unique id of the store across your application
 export const useTodosStore = defineStore('todos', () => {
     const todos = ref<Todo[]>([]);
+    const todo = ref<Todo>();
     const users = ref<User[]>([]);
 
     const totalTodos = computed(() => todos.value.length);
@@ -23,6 +24,25 @@ export const useTodosStore = defineStore('todos', () => {
         const data = await res.json();
         todos.value = data.slice(0, 10);
     }
+
+    const getToDo = async (id: number) => {
+        const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`);
+        todo.value = await res.json();
+    };
+
+    const updateToDo = async (todo: Todo) => {
+        try {
+            const res = await fetch(`https://jsonplaceholder.typicode.com/todo/${todo.id}`, {
+                method: 'PUT',
+                body: JSON.stringify(todo),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            });
+        } catch (e) {
+            console.log('errors', e)
+        }
+    };
 
     const removeToDo = async (toDoToBeRemoved:Todo) => {
         try {
@@ -56,12 +76,15 @@ export const useTodosStore = defineStore('todos', () => {
     return {
         addTodo,
         completedTodos,
+        getToDo,
         getToDos,
         getUserName,
         getUsers,
         removeToDo,
+        todo,
         todos,
         totalTodos,
+        updateToDo,
         users,
     }
 })
