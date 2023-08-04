@@ -32,7 +32,7 @@ export const useTodosStore = defineStore('todos', () => {
 
     const updateToDo = async (todo: Todo) => {
         try {
-            const res = await fetch(`https://jsonplaceholder.typicode.com/todo/${todo.id}`, {
+            await fetch(`https://jsonplaceholder.typicode.com/todo/${todo.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(todo),
                 headers: {
@@ -46,7 +46,7 @@ export const useTodosStore = defineStore('todos', () => {
 
     const removeToDo = async (toDoToBeRemoved:Todo) => {
         try {
-            const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${toDoToBeRemoved.id}`, {
+            await fetch(`https://jsonplaceholder.typicode.com/todos/${toDoToBeRemoved.id}`, {
                 method: 'DELETE',
             });
 

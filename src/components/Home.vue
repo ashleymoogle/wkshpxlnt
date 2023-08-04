@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import XCard from '@/src/components/XCard.vue';
-  import {Todo} from "@/types";
+  import { Todo, User } from "@/types";
 
   // @ts-ignore
   export default defineComponent({
@@ -10,11 +10,11 @@
     },
     data() {
       return {
-        title: '',
+        title: null as string|null,
         user: 0,
         completed: false,
-        users: [],
-        cards: [],
+        users: [] as User[],
+        cards: [] as Todo[],
       }
     },
 
@@ -53,6 +53,11 @@
         return '-';
       },
 
+      getFirstCharacter(str: string) {
+        console.log(str[0]);
+        return str[0];
+      },
+
       onSubmit() {
         const card:Todo = {
           userId: this.user,
@@ -60,6 +65,9 @@
           title: this.title,
           completed: this.completed,
         };
+
+        // We cast because this.title can be string or null and the function expects a string
+        this.getFirstCharacter(this.title as string);
 
         this.cards.push(card);
         this.title = '';

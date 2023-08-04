@@ -48,7 +48,7 @@
     const { users, todos, totalTodos } = toRefs(todosStore);
 
 
-    const title = ref<string>('New Todo');
+    const title = ref('New Todo');
     const completed = ref<boolean>(false);
     const userId = ref<number>(0);
 

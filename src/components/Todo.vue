@@ -23,6 +23,7 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
+    import { User } from '@/types.ts';
 
     export default defineComponent({
 
@@ -36,7 +37,7 @@
             userId: 0,
             completed: false,
           },
-          users: [],
+          users: [] as User[],
         };
       },
 
@@ -58,7 +59,7 @@
         },
 
         async onSubmit() {
-          const res = await fetch(`https://jsonplaceholder.typicode.com/todo/${this.card.id}`, {
+          await fetch(`https://jsonplaceholder.typicode.com/todo/${this.card.id}`, {
             method: 'PUT',
             body: JSON.stringify(this.card),
             headers: {
